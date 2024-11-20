@@ -48,6 +48,8 @@ EOF
 
 FROM node:18-alpine AS runtime
 
+RUN  apk --no-cache add libspatialite && ln -s /usr/lib/mod_spatialite.so.8 /usr/lib/mod_spatialite.so
+
 RUN npm install --global pm2@5
 
 USER node

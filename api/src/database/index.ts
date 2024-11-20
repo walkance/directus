@@ -127,6 +127,12 @@ export function getDatabase(): Knex {
 			const run = promisify(conn.run.bind(conn));
 			await run('PRAGMA foreign_keys = ON');
 
+			const loadExtension = promisify(conn.loadExtension.bind(conn));
+			await loadExtension('mod_spatialite').catch((error) => {
+				logger.error('mod_spatialite" load error');
+				logger.error(error);
+			});
+
 			callback(null, conn);
 		};
 	}
